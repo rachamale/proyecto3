@@ -6,7 +6,7 @@
     <script src="build/js/app.js"></script>
     <link rel="shortcut icon" href="<?= asset('images/cit.png') ?>" type="image/x-icon">
     <link rel="stylesheet" href="<?= asset('build/styles.css') ?>">
-    <title>DemoApp</title>
+    <title>Control de Notas</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark  bg-dark">
@@ -18,7 +18,7 @@
             </button>
             <a class="navbar-brand" href="/ejemplo/">
                 <img src="<?= asset('./images/cit.png') ?>" width="35px'" alt="cit" >
-                Aplicaciones
+                NOTAS
             </a>
             <div class="collapse navbar-collapse" id="navbarToggler">
                 
@@ -34,7 +34,9 @@
                         <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
                             <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/aplicaciones/nueva"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Subitem</a>
+                                <a class="dropdown-item nav-link text-white " href="/final_IS2_racchamale/alumnos"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Alumno</a>
+                                <a class="dropdown-item nav-link text-white " href="/final_IS2_racchamale/materias"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Materia</a>
+                                <a class="dropdown-item nav-link text-white " href="/final_IS2_racchamale/calficaciones"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Calificaciones</a>
                             </li>
                         
                     
