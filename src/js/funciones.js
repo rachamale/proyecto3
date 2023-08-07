@@ -28,7 +28,7 @@ export const Toast = Swal.mixin({
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
 })
-export const confirmacion = async (icon = 'warning', text = '¿Esta seguro que desea realizar esta acción?', confirmButtonText = 'Si') => {
+export const confirmacion = async (icon = 'warning', text = '¿Esta seguro que desea realizar esta acción?', confirmButtonText = 'Si, guardar') => {
     const alerta = Swal.fire({
         title : 'Confirmación',
         icon,

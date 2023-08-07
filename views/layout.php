@@ -36,7 +36,7 @@
                             <li>
                                 <a class="dropdown-item nav-link text-white " href="/proyecto3/alumnos"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Alumno</a>
                                 <a class="dropdown-item nav-link text-white " href="/proyecto3/materias"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Materia</a>
-                                <a class="dropdown-item nav-link text-white " href="/proyecto3/calficaciones"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Calificaciones</a>
+                                <a class="dropdown-item nav-link text-white " href="/proyecto3/calificaciones"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Calificaciones</a>
                             </li>
                         
                     
