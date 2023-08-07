@@ -35,7 +35,7 @@
         <div class="row mb-3">
             <div class="col">
                 <label for="detalle_situacion">Detalle situacion</label>
-                <input type="text" step="0.01" min="0" name="detalle_situacion" id="detalle" class="form-control">
+                <input type="text" step="0.01" min="0" name="detalle_situacion" id="detalle_situacion" class="form-control">
             </div>
         </div>
         <div class="row mb-3">

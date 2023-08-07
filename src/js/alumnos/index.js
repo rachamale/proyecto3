@@ -3,7 +3,6 @@ import Swal from "sweetalert2";
 import { validarFormulario, Toast } from "../funciones";
 
 const formulario = document.querySelector('form')
-const tablaProductos = document.getElementById('tablaProductos');
 const btnBuscar = document.getElementById('btnBuscar');
 const btnModificar = document.getElementById('btnModificar');
 const btnGuardar = document.getElementById('btnGuardar');
@@ -27,7 +26,7 @@ const guardar = async (evento) => {
 
     const body = new FormData(formulario)
     body.delete('producto_id')
-    const url = '/final_IS2_racchamale/API/alumnos/guardar';
+    const url = '/proyecto3/API/alumnos/guardar';
     const config = {
         method : 'POST',
         // body: otroNombre
@@ -73,7 +72,7 @@ const buscar = async () => {
 
     let alu_nombre = formulario.alu_nombre.value;
     let alu_apellido = formulario.alu_apellido.value;
-    const url = `/final_IS2_racchamale/API/alumnos/buscar?alu_nombre=${alu_nombre}&alu_apellido=${alu_apellido}`;
+    const url = `/proyecto3/API/alumnos/buscar?alu_nombre=${alu_nombre}&alu_apellido=${alu_apellido}`;
     const config = {
         method : 'GET'
     }
@@ -152,7 +151,7 @@ const buscar = async () => {
 const buscarTodos = async () => {
 
    
-    const url = `/final_IS2_racchamale/alumnos`;
+    const url = `/proyecto3/alumnos`;
     const config = {
         method : 'GET'
     }
@@ -270,7 +269,7 @@ const modificar = async () => {
     }
 
     const body = new FormData(formulario)
-    const url = '/final_IS2_racchamale/API/alumnos/modificar';
+    const url = '/proyecto3/API/alumnos/modificar';
     const config = {
         method : 'POST',
         body
@@ -314,7 +313,7 @@ const eliminar = async (id) => {
     if(await confirmacion('warning','¿Desea eliminar este registro?')){
         const body = new FormData()
         body.append('alumno_id', id)
-        const url = '/final_IS2_racchamale/API/alumnos/eliminar';
+        const url = '/proyecto3/API/alumnos/eliminar';
         const config = {
             method : 'POST',
             body

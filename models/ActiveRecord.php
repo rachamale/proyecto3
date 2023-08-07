@@ -3,82 +3,84 @@ namespace Model;
 use PDO;
 class ActiveRecord {
 
-    // Base DE DATOS
-    protected static $db;
+    // Variables para uso de base de datos
+    protected static $database;
     protected static $tabla = '';
-    protected static $columnasDB = [];
+    protected static $columns = [];
+    protected static $idTable = '';
 
-    protected static $idTabla = '';
-
-    // Alertas y Mensajes
-    protected static $alertas = [];
+   
+    // Alerts y Mensajes
+    protected static $alerts = [];
     
     // Definir la conexión a la BD - includes/database.php
     public static function setDB($database) {
-        self::$db = $database;
+        self::$database = $database;
     }
 
     public static function setAlerta($tipo, $mensaje) {
-        static::$alertas[$tipo][] = $mensaje;
+        static::$alerts[$tipo][] = $mensaje;
     }
     // Validación
-    public static function getAlertas() {
-        return static::$alertas;
+    public static function getAlerts() {
+        return static::$alerts;
     }
 
     public function validar() {
-        static::$alertas = [];
-        return static::$alertas;
+        static::$alerts = [];
+        return static::$alerts;
     }
 
     // Registros - CRUD
-    public function guardar() {
-        $resultado = '';
-        $id = static::$idTabla ?? 'id';
-        if(!is_null($this->$id)) {
-            // actualizar
-            $resultado = $this->actualizar();
-        } else {
-            // Creando un nuevo registro
-            $resultado = $this->crear();
-        }
-        return $resultado;
-    }
+   // public function guardar() {
+   //     $resultado = '';
+   //     $id = static::$idTable ?? 'id';
+   //     if(!is_null($this->$id)) {
+   //         // actualizar
+   //         $resultado = $this->actualizar();
+   //     } else {
+   //         // Creando un nuevo registro
+   //         $resultado = $this->crear();
+   //     }
+   //     return $resultado;
+   // }
 
-    public static function all() {
+   // Busca todos los registros de una tabla
+    public static function php_FindAll() {
         $query = "SELECT * FROM " . static::$tabla;
         $resultado = self::consultarSQL($query);
 
         // debuguear($resultado);
         return $resultado;
     }
+    
 
     // Busca un registro por su id
     public static function find($id) {
-        $idQuery = static::$idTabla ?? 'id';
+        $idQuery = static::$idTable ?? 'id';
         $query = "SELECT * FROM " . static::$tabla  ." WHERE $idQuery = ${id}";
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
 
-    // Obtener Registro
-    public static function get($limite) {
+    // Obtener Registro con un limite obtenido de registros
+    public static function php_FindWithLimit($limite) {
         $query = "SELECT * FROM " . static::$tabla . " LIMIT ${limite}";
         $resultado = self::consultarSQL($query);
         return array_shift( $resultado ) ;
     }
 
     // Busqueda Where con Columna 
-    public static function where($columna, $valor, $condicion = '=') {
+    public static function php_FindWithWhere($columna, $valor, $condicion = '=') {
         $query = "SELECT * FROM " . static::$tabla . " WHERE ${columna} ${condicion} '${valor}'";
         $resultado = self::consultarSQL($query);
         return  $resultado ;
     }
 
     // SQL para Consultas Avanzadas.
-    public static function SQL($consulta) {
+    public static function php_Query($consulta) {
         $query = $consulta;
-        $resultado = self::$db->query($query);
+        $resultado = self::$database->query($query);
         return $resultado;
     }
 
@@ -95,14 +97,12 @@ class ActiveRecord {
         $query .= " ) ";
         
 
-        // debuguear($query);
-
         // Resultado de la consulta
-        $resultado = self::$db->exec($query);
+        $resultado = self::$database->exec($query);
 
         return [
            'resultado' =>  $resultado,
-           'id' => self::$db->lastInsertId(static::$tabla)
+           'id' => self::$database->lastInsertId(static::$tabla)
         ];
     }
 
@@ -115,15 +115,15 @@ class ActiveRecord {
         foreach($atributos as $key => $value) {
             $valores[] = "{$key}={$value}";
         }
-        $id = static::$idTabla ?? 'id';
+        $id = static::$idTable ?? 'id';
 
         $query = "UPDATE " . static::$tabla ." SET ";
         $query .=  join(', ', $valores );
-        $query .= " WHERE " . $id . " = " . self::$db->quote($this->$id) . " ";
+        $query .= " WHERE " . $id . " = " . self::$database->quote($this->$id) . " ";
 
         // debuguear($query);
 
-        $resultado = self::$db->exec($query);
+        $resultado = self::$database->exec($query);
         return [
             'resultado' =>  $resultado,
         ];
@@ -131,19 +131,19 @@ class ActiveRecord {
 
     // Eliminar un registro - Toma el ID de Active Record
     public function eliminar() {
-        $query = "UPDATE "  . static::$tabla . " SET situacion = 0 WHERE id = " . self::$db->quote($this->id);
-        $resultado = self::$db->exec($query);
+        $query = "UPDATE "  . static::$tabla . " SET situacion = 0 WHERE id = " . self::$database->quote($this->id);
+        $resultado = self::$database->exec($query);
         return $resultado;
     }
 
     public static function consultarSQL($query) {
         // Consultar la base de datos
-        $resultado = self::$db->query($query);
+        $resultado = self::$database->query($query);
 
         // Iterar los resultados
         $array = [];
         while($registro = $resultado->fetch(PDO::FETCH_ASSOC)) {
-            $array[] = static::crearObjeto($registro);
+            $array[] = static::php_CreateObject($registro);
         }
 
         // liberar la memoria
@@ -154,7 +154,7 @@ class ActiveRecord {
     }
 
     public static function fetchArray($query){
-        $resultado = self::$db->query($query);
+        $resultado = self::$database->query($query);
         $respuesta = $resultado->fetchAll(PDO::FETCH_ASSOC);
         foreach ($respuesta as $value) {
             $data[] = array_change_key_case( array_map( 'utf8_encode', $value) ); 
@@ -165,7 +165,7 @@ class ActiveRecord {
 
         
     public static function fetchFirst($query){
-        $resultado = self::$db->query($query);
+        $resultado = self::$database->query($query);
         $respuesta = $resultado->fetchAll(PDO::FETCH_ASSOC);
         foreach ($respuesta as $value) {
             $data[] = array_change_key_case( array_map( 'utf8_encode', $value) ); 
@@ -174,7 +174,7 @@ class ActiveRecord {
         return array_shift($data);
     }
 
-    protected static function crearObjeto($registro) {
+    protected static function php_CreateObject($registro) {
         $objeto = new static;
 
         foreach($registro as $key => $value ) {
@@ -192,7 +192,7 @@ class ActiveRecord {
     // Identificar y unir los atributos de la BD
     public function atributos() {
         $atributos = [];
-        foreach(static::$columnasDB as $columna) {
+        foreach(static::$columnasDataBase as $columna) {
             $columna = strtolower($columna);
             if($columna === 'id') continue;
             $atributos[$columna] = $this->$columna;
@@ -204,7 +204,7 @@ class ActiveRecord {
         $atributos = $this->atributos();
         $sanitizado = [];
         foreach($atributos as $key => $value ) {
-            $sanitizado[$key] = self::$db->quote($value);
+            $sanitizado[$key] = self::$database->quote($value);
         }
         return $sanitizado;
     }

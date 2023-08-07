@@ -34,9 +34,9 @@
                         <ul class="dropdown-menu  dropdown-menu-dark "id="dropwdownRevision" style="margin: 0;">
                             <!-- <h6 class="dropdown-header">Información</h6> -->
                             <li>
-                                <a class="dropdown-item nav-link text-white " href="/final_IS2_racchamale/alumnos"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Alumno</a>
-                                <a class="dropdown-item nav-link text-white " href="/final_IS2_racchamale/materias"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Materia</a>
-                                <a class="dropdown-item nav-link text-white " href="/final_IS2_racchamale/calficaciones"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Calificaciones</a>
+                                <a class="dropdown-item nav-link text-white " href="/proyecto3/alumnos"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Alumno</a>
+                                <a class="dropdown-item nav-link text-white " href="/proyecto3/materias"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Materia</a>
+                                <a class="dropdown-item nav-link text-white " href="/proyecto3/calficaciones"><i class="ms-lg-0 ms-2 bi bi-plus-circle me-2"></i>Calificaciones</a>
                             </li>
                         
                     
