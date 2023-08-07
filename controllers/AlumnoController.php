@@ -7,16 +7,23 @@ use Model\Alumno;
 use MVC\Router;
 
 class AlumnoController{
+
     public static function index(Router $router){
-        $alumnos = Alumno::php_FindAll();
-        $router->render('alumnos/index', ['alumnos' => $alumnos]);
+        // echo "<script>console.log('alumnoController');</script>";
+        $alumnos = Alumno::all();  
+        // echo "<script>console.log('".$router->."');</script>";
+        //   echo "<script>console.log('".$alumnos."');</script>";  
+          $router->render('alumnos/index', [
+            'alumnos' => $alumnos
+          ]);
 
-    }
 
-    public static function API_CREATE(){
+}
+
+    public static function guardarAPI(){
         try {
             $alumno = new Alumno($_POST);
-            $resultado = $alumno->php_Create();
+            $resultado = $alumno->crear();
 
             if($resultado['resultado'] == 1){
                 echo json_encode([
@@ -39,11 +46,11 @@ class AlumnoController{
         }
     }
 
-    public static function API_UPDATE(){
+    public static function modificarAPI(){
         try {
             $alumno = new Alumno($_POST);
             
-            $resultado = $alumno->php_Update();
+            $resultado = $alumno->actualizar();
 
             if($resultado['resultado'] == 1){
                 echo json_encode([
@@ -52,25 +59,27 @@ class AlumnoController{
                 ]);
             }else{
                 echo json_encode([
-                    'mensaje' => 'Ocurrió un error',
+                    'mensaje' => 'Ocurrió un error OK',
                     'codigo' => 0
                 ]);
             }
         } catch (Exception $e) {
             echo json_encode([
                 'detalle' => $e->getMessage(),
-                'mensaje' => 'Ocurrió un error',
+                'mensaje' => 'Ocurrió un error FATAL',
                 'codigo' => 0
             ]);
         }
     }
 
-    public static function API_DELETE(){
-        try {
-            $alumno_id = $_POST['alumno_id'];
-            $alumno = Alumno::php_FindById($alumno_id);
+    public static function eliminarAPI(){
+
+        try {       
+            $id_alumnos = $_POST['id_alumnos'];
+            $alumno = Alumno::find($id_alumnos);
+            
             $alumno->detalle_situacion = 0;
-            $resultado = $alumno->php_Delete();
+            $resultado = $alumno->actualizar();
 
             if($resultado['resultado'] == 1){
                 echo json_encode([
@@ -92,21 +101,23 @@ class AlumnoController{
         }
     }
 
-    public static function API_READ(){
-        // $alumnos = Alumno::all();
-        $alumno_nombre = $_GET['alu_nombre'];
-        $alumno_apellido = $_GET['alu_apellido'];
-
-        $sql = "SELECT * FROM alumnos where detalle_situacion = 1 ";
-        if($alumno_nombre != '') {
-            $sql.= " and alu_nombre like '%$alumno_nombre%' ";
-        }
-        if($alumno_apellido != '') {
-            $sql.= " and alu_apellido = $alumno_apellido ";
-        }
+    public static function buscarAPI() {
         try {
-            
-            $alumnos = Alumno::fetchArray($sql);
+            $alu_nombre = isset($_GET['alu_nombre']) ? $_GET['alu_nombre'] : '';
+            $alu_apellido = isset($_GET['alu_apellido']) ? $_GET['alu_apellido'] : '';
+    
+            $sql = "SELECT * FROM alumnos WHERE detalle_situacion = 1 ";
+            $params = [];
+    
+            if (!empty($alu_nombre)) {
+                $sql .= " AND alu_nombre LIKE '%" . $alu_nombre . "%'";
+            }
+    
+            if (!empty($alu_apellido)) {
+                $sql .= " AND alu_apellido LIKE '%" . $alu_apellido . "%'";
+            }
+    
+            $alumnos = Alumno::fetchArray($sql, $params);
     
             echo json_encode($alumnos);
         } catch (Exception $e) {

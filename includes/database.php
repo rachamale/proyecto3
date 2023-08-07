@@ -9,6 +9,7 @@ try {
     $database = $_ENV['DB_NAME'];
 
     $db =  new PDO("informix:host=$host; service=$service;database=$database; server=$server; protocol=onsoctcp;EnableScrollableCursors=1", "$user", "$pass");
+    
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
    
     
@@ -19,6 +20,6 @@ try {
 
         "codigo" => 5,
     ]);
-    header('Location: /');
-    exit;
+    // header('Location: /');
+    // exit;
 }
