@@ -6,6 +6,7 @@ use Controllers\AppController;
 use Controllers\AlumnoController;
 use Controllers\MateriaController;
 use Controllers\CalificacionController;
+use Controllers\ReporteController;
 
 $router = new Router();
 $router->setBaseURL('/' . $_ENV['APP_NAME']);
@@ -28,6 +29,8 @@ $router->post('/API/materias/modificar', [MateriaController::class,'modificarAPI
 $router->post('/API/materias/eliminar', [MateriaController::class,'eliminarAPI'] );
 $router->get('/API/materias/buscar', [MateriaController::class,'buscarAPI'] );
 
+$router->get('/reporte', [ReporteController::class,'index'] );
+
 // Ruta para mostrar el listado de calificaciones.
 $router->get('/calificaciones', [CalificacionController::class,'index'] );
 //rutas para crear,actulizar,eliminar y buscar una nueva calificacion mediante unsa solicitud Post a la api,y get el buscarAPI
@@ -35,6 +38,11 @@ $router->post('/API/calificaciones/guardar', [CalificacionController::class,'gua
 $router->post('/API/calificaciones/modificar', [CalificacionController::class,'modificarAPI'] );
 $router->post('/API/calificaciones/eliminar', [CalificacionController::class,'eliminarAPI'] );
 $router->get('/API/calificaciones/buscar', [CalificacionController::class,'buscarAPI'] );
+
+$router->get('/reportes', [ReporteController::class,'index'] );
+$router->get('/API/reportes/buscar', [ReporteController::class,'buscarAPI'] );
+
+
 
 // Comprueba y valida las rutas, que existan y les asigna las funciones del Controlador
 $router->comprobarRutas();
