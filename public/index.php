@@ -4,7 +4,7 @@ require_once __DIR__ . '/../includes/app.php';
 use MVC\Router;
 use Controllers\AppController;
 use Controllers\AlumnoController;
-// use Controllers\MateriaController;
+use Controllers\MateriaController;
 // use Controllers\CalificacionController;
 
 $router = new Router();
@@ -20,13 +20,13 @@ $router->post('/API/alumnos/modificar', [AlumnoController::class,'modificarAPI']
 $router->post('/API/alumnos/eliminar', [AlumnoController::class,'eliminarAPI'] );
 $router->get('/API/alumnos/buscar', [AlumnoController::class,'buscarAPI'] );
 
-// //Ruta para mostrar el listado de materias.
-// $router->get('/materias', [MateriaController::class,'index'] );
-// //rutas para crear,actulizar,eliminar y buscar una nueva materia mediante una solicitud Post a la api,y get el buscarAPI
-// $router->post('/API/materias/guardar', [MateriaController::class,'guardarAPI'] );
-// $router->post('/API/materias/modificar', [MateriaController::class,'modificarAPI'] );
-// $router->post('/API/materias/eliminar', [MateriaController::class,'eliminarAPI'] );
-// $router->get('/API/materias/buscar', [MateriaController::class,'buscarAPI'] );
+//Ruta para mostrar el listado de materias.
+$router->get('/materias', [MateriaController::class,'index'] );
+//rutas para crear,actulizar,eliminar y buscar una nueva materia mediante una solicitud Post a la api,y get el buscarAPI
+$router->post('/API/materias/guardar', [MateriaController::class,'guardarAPI'] );
+$router->post('/API/materias/modificar', [MateriaController::class,'modificarAPI'] );
+$router->post('/API/materias/eliminar', [MateriaController::class,'eliminarAPI'] );
+$router->get('/API/materias/buscar', [MateriaController::class,'buscarAPI'] );
 
 // // Ruta para mostrar el listado de calificaciones.
 // $router->get('/calificaciones', [AlumnoController::class,'index'] );
